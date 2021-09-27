@@ -29,4 +29,10 @@ public class TestController {
 	public List<Map<String, Object>> test2(){
 		return testBO.getUserList();
 	}
+	
+	// jsp 연동 테스트
+	@RequestMapping("/test3")
+	public String test3() {
+		return "test/test";
+	}
 }
