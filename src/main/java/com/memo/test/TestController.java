@@ -35,4 +35,10 @@ public class TestController {
 	public String test3() {
 		return "test/test";
 	}
+	
+	@RequestMapping("/test4")
+	public String test4() {
+		return "template/layout";
+	}
+	
 }

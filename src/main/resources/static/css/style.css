@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+/* body {background-color:#999;} */
+
+header {height:100px}
+header .logo {height:100px} /*헤더 안의 로고에 높이를 주고, d-flex align 주면 가운데 정렬 됨*/
+header .login-info {height:100px}
+
+.contents {height:500px;}
+
+footer {height:100px;}
