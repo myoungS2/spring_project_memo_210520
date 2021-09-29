@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.memo.user.dao.UserDAO;
+import com.memo.user.model.User;
 
 @Service
 public class UserBO {
@@ -16,7 +17,12 @@ public class UserBO {
 	}
 	
 	// insert DB
-	public int addUser (String loiginId, String password, String name, String email) {
-		return userDAO.insertUser(loiginId, password, name, email);
+	public void addUser(String loiginId, String password, String name, String email) {
+		userDAO.insertUser(loiginId, password, name, email);
+	}
+	
+	// select DB
+	public User getUserByLoginIdAndPassword(String loginId, String password) {
+		return userDAO.selectUserByLoginIdAndPassword(loginId, password);
 	}
 }
