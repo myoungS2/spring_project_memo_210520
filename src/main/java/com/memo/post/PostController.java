@@ -30,6 +30,7 @@ public class PostController {
 	public String postListView(Model model, HttpServletRequest request) {
 		// 글 목록들을 가져온다. (로그인 된 아이디가 쓴 글만)
 		HttpSession session = request.getSession();
+		
 		// session 검증
 		Integer userId = (Integer)session.getAttribute("userId");
 		
@@ -39,11 +40,11 @@ public class PostController {
 			
 			return "redirect:/user/sign_in_view"; // 만약 운이 나쁘게 session에서 로그인이 풀렸다면, 다시 로그인창으로 이동시키기
 		}
-		List<Post> postList = postBO.getPostList(userId);
+		List<Post> postList = postBO.getPostListByUserId(userId);
 		
 		// 모델에 담는다.
 		model.addAttribute("postList", postList);
-		model.addAttribute("viewName", "post/post_list");
+		model.addAttribute("viewName", "post/post_list"); //section부분 바꿔주기
 		return "template/layout";
 	}
 }

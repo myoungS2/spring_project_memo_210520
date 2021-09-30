@@ -10,5 +10,5 @@ import com.memo.post.model.Post;
 public interface PostDAO {
 	
 	// select DB
-	public List<Post> selectPostList(int userId);
+	public List<Post> selectPostListByUserId(int userId);
 }

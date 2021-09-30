@@ -15,7 +15,7 @@ public class PostBO {
 	private PostDAO postDAO;
 	
 	// select DB
-	public List<Post> getPostList(int userId) {
-		return postDAO.selectPostList(userId); 
+	public List<Post> getPostListByUserId(int userId) {
+		return postDAO.selectPostListByUserId(userId); 
 	}
 }
