@@ -19,9 +19,6 @@ public class PermissionInterceptor implements HandlerInterceptor {
 	// private Logger logger = LoggerFactory.getLogger(PermissionInterceptor.class);
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	
-	
-	
 	// 1.
 	@Override
 	public boolean preHandle(HttpServletRequest request, 

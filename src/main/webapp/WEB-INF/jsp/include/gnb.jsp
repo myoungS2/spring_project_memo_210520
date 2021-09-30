@@ -8,7 +8,7 @@
 	<div class="login-info d-flex align-items-center mr-3">
 		<%-- 세션 정보다 있는 경우에만 출력 --%>
 		<c:if test="${not empty userId}" >
-			<span class="font-weight-bold">${userName}님 안녕하세요.</span><%-- 나중에 로그인정보 불러와서 사용자이름 부분 채울 것 => el표현식 ${userName}--%> 
+			<span class="font-weight-bold">${userName}님 안녕하세요.</span><%-- 로그인정보 불러와서 사용자이름 => el표현식 ${userName}--%> 
 			<a href="/user/sign_out" class="font-weight-bold">로그아웃</a>
 		</c:if>
 	</div>
