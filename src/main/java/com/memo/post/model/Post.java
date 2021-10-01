@@ -4,7 +4,8 @@ import java.util.Date;
 
 public class Post {
 	private int id;
-	private String userId;
+	private int userId; 
+	// 오늘의 에러 1 : userId의 type을 String으로 설정해놔서 계속 값을 가져오지 못했음 0이 넘어옴..ㅠ잘하자...
 	private String subject;
 	private String content;
 	private String imagePath;
@@ -17,10 +18,10 @@ public class Post {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getUserId() {
+	public int getUserId() {
 		return userId;
 	}
-	public void setUserId(String userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	public String getSubject() {

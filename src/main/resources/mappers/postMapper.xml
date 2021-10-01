@@ -14,7 +14,7 @@
 			,`updatedAt`
  		FROM
  			`post`
- 		WEHRE
+ 		WHERE <!-- 오늘의 error 2 : where -> wehre로 씀...ㅠ 진짜 와이라노  -->
  			`userId` = #{userId}
  	</select>
  </mapper>

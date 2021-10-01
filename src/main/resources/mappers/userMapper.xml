@@ -34,7 +34,8 @@
  	</insert>
  	<select id="selectUserByLoginIdAndPassword" parameterType="Map" resultType="com.memo.user.model.User">
  		SELECT 
- 			`loginId`
+ 			`id`
+ 			,`loginId`
 			,`password`
 			,`name`
 			,`email`
