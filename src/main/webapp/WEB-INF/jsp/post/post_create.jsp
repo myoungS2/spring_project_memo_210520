@@ -91,7 +91,7 @@
 				, contentType: false 
 				// sucess와 error 밑에 쓰기!
 				, success: function(data) {
-					if (data.resutl == 'success'){
+					if (data.result == 'success'){
 						alert('메모가 저장되었습니다.');
 						// 링크걸기
 						
