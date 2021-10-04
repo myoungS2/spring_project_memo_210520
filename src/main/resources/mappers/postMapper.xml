@@ -17,4 +17,24 @@
  		WHERE <!-- 오늘의 error 2 : where -> wehre로 씀...ㅠ 진짜 와이라노  -->
  			`userId` = #{userId}
  	</select>
+ 	<insert id="insertPost" parameterType="map">
+ 		INSERT INTO `post`
+ 		(
+ 			`userId` <!-- 오늘의 error 1 : 여기 앞에 , 있어서...어...업로드 안됐었음..나 환장하네.. -->
+			,`subject`
+			,`content`
+			,`imagePath`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{userId}
+ 			, #{subject}
+ 			, #{content}
+ 			, #{imagePath} 
+			, NOW() 			
+			, NOW() 			
+ 		)
+ 	</insert>
  </mapper>
