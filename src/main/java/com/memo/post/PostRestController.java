@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,4 +51,40 @@ public class PostRestController {
 		// 결과값 response 
 		return result;
 	}
+	
+	@PutMapping("/update") // put = 수정 이라는 늒힘..!
+	public Map<String, Object> update(
+			@RequestParam("postId") int postId,
+			@RequestParam("subject") String subject,
+			@RequestParam("content") String content,
+			@RequestParam(value="file", required=false) MultipartFile file,
+			HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		String loginId = (String) session.getAttribute("userLoginId");
+				
+		// update DB
+		postBO.updatePost(postId, loginId, subject, content, file);
+		
+		// 결과값 response -> 여기까지 도달했다는 것은 success라는 뜻이므로, 그냥 성공 내려주기
+		Map<String, Object> result = new HashMap<>();
+		result.put("result", "success");
+		
+		return result;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

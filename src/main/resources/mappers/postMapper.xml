@@ -37,4 +37,31 @@
 			, NOW() 			
  		)
  	</insert>
+ 	<select id="selectPost" parameterType="int" resultType="com.memo.post.model.Post">
+ 		SELECT 
+ 			`id`
+			,`userId`
+			,`subject`
+			,`content`
+			,`imagePath`
+			,`createdAt`
+			,`updatedAt`
+ 		FROM
+ 			`post`
+ 		WHERE 
+ 			`id` = #{id}
+ 	</select>
+ 	<update id="updatePost" parameterType="map">
+ 		UPDATE `post`
+ 		SET
+ 			`subject` = #{subject}
+ 			,`content` = #{content}
+ 			, `updatedAt` = NOW()
+ 			<!-- 동적쿼리(반복문도...있음..!)imagePath가 있을 때에만 수정한다. => if문 -->
+ 			<if test="imagePath != null"> <!-- el표현식 아니고 그냥 imagePath를 가져오면 됨 -->
+ 				,`imagePath` = #{imagePath}
+ 			</if>
+ 		WHERE
+ 			`id` = #{id}	
+ 	</update>
  </mapper>

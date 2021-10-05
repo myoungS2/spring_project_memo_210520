@@ -19,4 +19,16 @@ public interface PostDAO {
 			@Param("subject") String subject,
 			@Param("content") String content,
 			@Param("imagePath") String imagePath);
+	
+	// select DB (선택 된 게시물 하나만 가져오기)
+	public Post selectPost(int id);
+	
+	
+	// update DB
+	public void updatePost(
+			@Param("id") int id,
+			@Param("subject") String subject,
+			@Param("content") String content,
+			@Param("imagePath") String imagePath);
+			
 }

@@ -18,11 +18,17 @@ public class FileManagerService {
 	// WebMvcConfig도 같이 볼 것 => 실제 저장된 파일과 이미지패스를 매핑해줌 (*)
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
 	// was에 url을 만들어내고, 그 url과 우리컴퓨터에 있는 이미지파일 -> 맵핑
 	// 1. 실제 이미지가 저장될 경로 (public -> 다른곳에서도 저장. final, static -> 수정 x)
 	public final static String FILE_UPLOAD_PATH = "D:\\심미영_웹개발_210520\\6_spring_project\\ex\\memo_workspace\\images/";
 	
+	/**
+	 * save file
+	 * @param loginId
+	 * @param file
+	 * @return
+	 * @throws IOException
+	 */
 	// 2. 파일을 받아서 String(url) return -> 내 컴퓨터상의 url
 	public String saveFile(String loginId, MultipartFile file) throws IOException {
 		// 3. 파일 디렉토리 경로 -> 사용자별로 다른 폴더를 갖게...!(파일명이 겹치지 않게하기 위해서, loginId와 현재시간을 경로에 붙여준다.) 
@@ -49,4 +55,28 @@ public class FileManagerService {
 		// ex) http://localhost/images/qwer_164545623243/apple.png -> 이것을 주소창에 치면 이미지가 나와야함..!
 		return "/images/" + directoryName + file.getOriginalFilename(); // test 시 null값 리턴했었음..!
 	} 
+	
+	/**
+	 * delete file
+	 * @param imagePath
+	 * @throws IOException 
+	 */
+	public void deleteFile(String imagePath) throws IOException{
+		// 파라미터 값 : ex) /images/qwer_164545623243/apple.png
+		// 실제 경로 : ex) D:\\심미영_웹개발_210520\\6_spring_project\\ex\\memo_workspace\\images/
+		// 실제경로 + 파라미터 => images가 겹치게 됨 한쪽(파라미터쪽) /images/를 제거해줌
+		Path path = Paths.get(FILE_UPLOAD_PATH + imagePath.replace("/images/", "")); 
+		if (Files.exists(path)) {
+		 // 파일이 존재하면 삭제한다.
+			Files.delete(path); // exception -> 위로던지기~
+		}
+		
+		// 디렉토리 삭제
+		path = path.getParent(); // 그림의 부모->디렉토리
+		if (Files.exists(path)) {
+		// 디렉토리가 존재하면 삭제한다.
+			Files.delete(path);
+		}
+	}
+
 }

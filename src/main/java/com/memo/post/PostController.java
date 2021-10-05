@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.memo.post.bo.PostBO;
 import com.memo.post.model.Post;
@@ -54,11 +55,44 @@ public class PostController {
 		return "template/layout";
 	}
 	
+	/**
+	 * 글 쓰기 화면
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/post_create_view")
-	public String postCreateView(Model model) {
+	public String postCreateView(Model model, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		Integer userId = (Integer)session.getAttribute("userId");
+		if (userId == null) {
+			// 세션에 userId가 없으면 로그인 하는 페이지로 이동(redirect) -> intercepter가 있기 때문에 필요하지 않지만, marondal에서는..! 사용해주면 좋음
+			return "redirect:/user/sign_in_view"; 
+		}
 		
 		model.addAttribute("viewName", "post/post_create"); // 여기에 주소도 입력안해놓고 요청해서 400에러뜨게하지말라...
-		
 		return "template/layout";
+	}
+	
+	
+	@RequestMapping("/post_detail_view")
+	public String postDetailView(
+			// 무슨 글을 클릭하고 들어왔는지..를 넘겨주어야 함 -> post의 id값이 파라미터로 필요
+			@RequestParam("postId") int postId,
+			Model model, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		Integer userId = (Integer)session.getAttribute("userId");
+		if (userId == null) {
+			// 세션에 userId가 없으면 로그인 하는 페이지로 이동(redirect) -> intercepter가 있기 때문에 필요하지 않지만, marondal에서는..! 사용해주면 좋음
+			return "redirect:/user/sign_in_view"; 
+		}
+		
+		// postId에 해당하는 게시물을 가져와서 model에 담는다. -> 그리고 jsp로 보낸다.(model에 담아서)
+		Post post = postBO.getPost(postId);
+		
+		model.addAttribute("post",post);
+		model.addAttribute("viewName", "post/post_detail");
+		return "template/layout";  
 	}
 }
