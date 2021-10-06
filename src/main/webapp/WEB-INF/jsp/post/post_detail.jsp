@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%-- ${post} --%> <%-- com.memo.post.model.Post@32b949c5 들어있는 값 --%>
 
- <div class="d-flex justify-content-center">
+ <div class="d-flex justify-content-center mt-2">
 	<div class="w-50">
 		<%-- test2:1234(pw) 까먹지말긔...ㅠ --%>
 		<input type="text" id="subject" class="form-control" value="${post.subject}"> <!-- 모델에 담아져있는 post를 el표현식으로 가져오기 -->
@@ -21,8 +21,8 @@
 			</div>
 		</c:if>
 		
-		<div class="clearfix"> <%-- float를 사용하고, 1차 상위 부모에 clearfix를 해야함 --%>
-			<button id="deleteBtn" class="btn btn-secondary float-left">삭제</button>
+		<div class="clearfix mb-3"> <%-- float를 사용하고, 1차 상위 부모에 clearfix를 해야함 --%>
+			<a href="#" id="deleteBtn" class="btn btn-secondary float-left" data-post-id="${post.id}">삭제</a>
 			
 			<div class="float-right">
 				<button id="listBtn" class="btn btn-dark">목록으로</button>
@@ -103,9 +103,35 @@
 				}
 			}); // ajax close
 			
-			
-			
 		}); // saveBtn close 
+		
+		// 글 삭제
+		$('#deleteBtn').on('click', function(e){
+			e.preventDefault(); //  화면 상단으로 올라가는 것 방지 (일반 button태그 아니고 a태그이기 때문에)
+			
+			// 어떤 글을 삭제하는지에 대한 정보
+			let postId = $(this).data('post-id');
+			
+			// ajax 통신으로 삭제 요청
+			$.ajax({
+				type: 'delete'
+				, url: '/post/delete' // action -> api(view가 아닌) responsebody로..내려올 수 있는
+				, data: {'postId':postId}
+				, success: function(data) { // 삭제 성공 여부가 내려옴
+					if(data.result == 'success'){
+						// 삭제 후 글 목록으로 이동
+						alert("메모가 삭제되었습니다.");
+						location.href="/post/post_list_view";
+					}
+				}
+				, error: function(e) {
+					alert("메모를 삭제하는데 실패했습니다." + e);
+				}
+				
+			}); // ajax close
+			
+		}); // deleteBtn close
+		
 		
 	}); // document close
 

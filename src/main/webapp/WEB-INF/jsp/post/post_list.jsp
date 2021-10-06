@@ -31,6 +31,15 @@
 		</tbody>
 	</table>
 	
+	<div class="d-flex justify-content-center">
+		<c:if test="${prevId ne 0}">
+			<a href="/post/post_list_view?prevId=${prevId}" class="mr-3">&lt;&lt; 이전</a> <%-- &lt; == < --%>
+		</c:if>
+		<c:if text="${nextId ne 0}">
+			<a href="/post/post_list_view?nextId=${nextId}" >다음 &gt;&gt;</a> <%-- &gt; == > --%>
+		</c:if>
+	</div>
+	
 	<div class="d-flex justify-content-end"> <%-- float를 사용하게되면 밑의 태그들에도 적용됨..!(clearfix를 사용해주어야 적용해제됨) --%>
 		<a href="/post/post_create_view" class="btn btn-primary">글쓰기</a> <%-- a태그 버튼처럼 사용=> class="btn" --%>
 	</div>

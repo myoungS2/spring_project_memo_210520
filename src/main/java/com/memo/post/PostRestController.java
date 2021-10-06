@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,14 @@ public class PostRestController {
 	@Autowired
 	private PostBO postBO;
 	
+	/**
+	 * 글 입력
+	 * @param subject
+	 * @param content
+	 * @param file
+	 * @param request
+	 * @return
+	 */
 	@PostMapping("/create")
 	public Map<String, Object> create(
 			@RequestParam("subject") String subject,
@@ -52,6 +61,15 @@ public class PostRestController {
 		return result;
 	}
 	
+	/**
+	 * 글 수정
+	 * @param postId
+	 * @param subject
+	 * @param content
+	 * @param file
+	 * @param request
+	 * @return
+	 */
 	@PutMapping("/update") // put = 수정 이라는 늒힘..!
 	public Map<String, Object> update(
 			@RequestParam("postId") int postId,
@@ -67,6 +85,22 @@ public class PostRestController {
 		postBO.updatePost(postId, loginId, subject, content, file);
 		
 		// 결과값 response -> 여기까지 도달했다는 것은 success라는 뜻이므로, 그냥 성공 내려주기
+		Map<String, Object> result = new HashMap<>();
+		result.put("result", "success");
+		
+		return result;
+	}
+	
+	
+	@DeleteMapping("/delete")
+	public Map<String, Object> delete(
+			@RequestParam("postId") int postId){
+		
+		// delete DB
+		postBO.deletePost(postId);
+	
+		
+		// 결과 return
 		Map<String, Object> result = new HashMap<>();
 		result.put("result", "success");
 		

@@ -96,7 +96,7 @@
 					if (data.result == 'success'){
 						alert('메모가 저장되었습니다.');
 						// 링크걸기 -> 게시목록(post_list_view)이 보여지게
-						location.here = "/post/post_list_view";
+						location.href="/post/post_list_view";
 					}
 				}	
 				, error: function(e) {
